@@ -1,0 +1,15 @@
+# Orca 仓库配置:新建工作树时自动运行的设置命令。
+# scripts.setup 在 Orca 每次创建新工作树后执行,可用于安装依赖、
+# 建目录、复制环境文件等;scripts.archive 在归档工作树时执行(暂未配置)。
+scripts:
+  setup: |
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    echo "[life-manage] 新工作树: $ORCA_WORKTREE_PATH"
+    echo "[life-manage] 分支: ${ORCA_REPO_BRANCH:-unknown}"
+
+    # 生活管理数据目录(每个工作树独立)
+    mkdir -p "$ORCA_WORKTREE_PATH/data"
+
+    echo "[life-manage] setup 完成"
